@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html" 
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui = "http://java.sun.com/jsf/facelets"
+	  xmlns:b="http://bootsfaces.net/ui">
+
+<!-- xmlns:h="http://java.sun.com/jsf/html" => São os elementos gráficos da tela -->
+<!-- xmlns:f="http://java.sun.com/jsf/html" => Não  tem os elementos gráficos, mais tem o suportepara várias funcionalidades avançadas, ele da o suporte aos elementos HTML do JSF. Sempre vai usar core junto com elementos gráfico do JSF. -->
+<!-- xmlns:ui = "http://java.sun.com/jsf/facelets" => Cria a pagina menu.xhtml, colocando dentro dela os botão, para simplificar o código. Não equecendo de colocar o <ui:include src="/menu.xhtml" dentro da pagina e o caminho de onde está indo. -->
+
+<h:head>
+	<title>Laçamentos</title>
+	
+	<link href="resources/estilo.css" rel="stylesheet"></link>
+</h:head>
+
+<h:body>
+
+	<ui:include src="/menu.xhtml"/>
+		
+		<b:messages id="msg"/>
+		
+		<b:form id="formLancamento">
+			<b:panelGrid columns="2">
+			
+			<b:column>
+				<h:outputLabel value="Data inicial:"/>
+				<b:datepicker locale="pt" value="#{relLancamento.dataIni}"/>
+			</b:column>
+			
+			<b:column>
+				<h:outputLabel value="Data fiml:"/>
+				<b:datepicker locale="pt" value="#{relLancamento.dataFim}"/>
+			</b:column>
+			
+			<b:column>
+				<h:outputLabel value="Número nota:"/>
+				<b:inputText value="#{relLancamento.numNota}"/>
+			</b:column>
+			
+			</b:panelGrid>
+			
+					<b:commandButton value="Buscar" action="#{relLancamento.buscarLancamento}" look="primary" style="margin-left: 15px;"/>
+
+		</b:form>
+		
+		<br/>
+		<br/>
+		<br/>
+			
+		<b:form>
+			<b:dataTable value="#{relLancamento.lancamentos}" var="lanc" border="3" cellpadding="6" pdf="true" excel="true">
+			
+				<b:dataTableColumn value="#{lanc.id}" label="ID"/>
+				
+				<b:dataTableColumn value="#{lanc.numeroNotaFiscal}" label="Nota Fiscal"/>
+				
+				<b:dataTableColumn value="#{lanc.usuario.nome}" label="Usuário"/>
+				
+				<b:dataTableColumn value="#{lanc.dataIni}" label="Data inicial"/>
+				
+				<b:dataTableColumn value="#{lanc.dataFinal}" label="Data final"/>
+				
+			</b:dataTable>
+	</b:form>
+</h:body>
+
+</html>
+
